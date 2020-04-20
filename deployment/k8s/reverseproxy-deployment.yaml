@@ -1,29 +1,30 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: reverseproxy
-  name: reverseproxy
+    service: udacity-cd-03-project-reverseproxy
+  name: udacity-cd-03-project-reverseproxy
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      service: udacity-cd-03-project-reverseproxy
   template:
     metadata:
       labels:
-        service: reverseproxy
+        service: udacity-cd-03-project-reverseproxy
     spec:
       containers:
-      - image: scheele/reverseproxy
-        name: reverseproxy
-        imagePullPolicy: Always          
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "1024Mi"
-            cpu: "500m"       
-        ports:
-        - containerPort: 8080
+        - image: hnrchrdl/udacity-cd-03-project-reverseproxy
+          name: udacity-cd-03-project-reverseproxy
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
       restartPolicy: Always
-
-

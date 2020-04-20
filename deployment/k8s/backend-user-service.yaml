@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: backend-user
-  name: backend-user
+    service: udacity-cd-03-project-userservice
+  name: udacity-cd-03-project-userservice
 spec:
   ports:
-  - name: "8080"
-    port: 8080
-    targetPort: 8080
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
   selector:
-    service: backend-user
+    service: udacity-cd-03-project-userservice

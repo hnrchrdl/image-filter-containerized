@@ -1,0 +1,18 @@
+version: "3"
+services:
+  udacity-cd-03-project-reverseproxy:
+    build:
+      context: ..
+    image: hnrchrdl/udacity-cd-03-project-reverseproxy
+  udacity-cd-03-project-userservice:
+    build:
+      context: ../../../user-service
+    image: hnrchrdl/udacity-cd-03-project-userservice
+  udacity-cd-03-project-feedservice:
+    build:
+      context: ../../../feed-service
+    image: hnrchrdl/udacity-cd-03-project-feedservice
+  udacity-cd-03-project-frontend:
+    build:
+      context: ../../../frontend
+    image: hnrchrdl/udacity-cd-03-project-frontend

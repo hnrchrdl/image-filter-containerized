@@ -1,40 +1,40 @@
 version: "3"
 services:
-  reverseproxy:
-      image: scheele/reverseproxy
-      ports:
-          - 8080:8080
-      restart: always
-      depends_on:
-        - backend-user
-        - backend-feed     
-  backend-user:
-    image: scheele/udacity-restapi-user
+  udacity-cd-03-project-reverseproxy:
+    image: hnrchrdl/udacity-cd-03-project-reverseproxy
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - udacity-cd-03-project-userservice
+      - udacity-cd-03-project-feedservice
+  udacity-cd-03-project-userservice:
+    image: hnrchrdl/udacity-cd-03-project-userservice
     environment:
       POSTGRESS_USERNAME: $POSTGRESS_USERNAME
-      POSTGRESS_PASSWORD: $POSTGRESS_PASSWORD 
-      POSTGRESS_DB: $POSTGRESS_DB 
-      POSTGRESS_HOST: $POSTGRESS_HOST 
-      AWS_REGION: $AWS_REGION 
-      AWS_PROFILE: $AWS_PROFILE 
+      POSTGRESS_PASSWORD: $POSTGRESS_PASSWORD
+      POSTGRESS_DB: $POSTGRESS_DB
+      POSTGRESS_HOST: $POSTGRESS_HOST
+      AWS_REGION: $AWS_REGION
+      AWS_PROFILE: $AWS_PROFILE
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
-      URL: "http://localhost:8100"
-  backend-feed:
-    image: scheele/udacity-restapi-feed
+      URL: "http://a44e3f2081c794654acbec10f83b3273-2133831212.eu-central-1.elb.amazonaws.com:8100"
+  udacity-cd-03-project-feedservice:
+    image: hnrchrdl/udacity-cd-03-project-feedservice
     volumes:
       - $HOME/.aws:/root/.aws
     environment:
       POSTGRESS_USERNAME: $POSTGRESS_USERNAME
-      POSTGRESS_PASSWORD: $POSTGRESS_PASSWORD 
-      POSTGRESS_DB: $POSTGRESS_DB 
-      POSTGRESS_HOST: $POSTGRESS_HOST 
-      AWS_REGION: $AWS_REGION 
-      AWS_PROFILE: $AWS_PROFILE 
+      POSTGRESS_PASSWORD: $POSTGRESS_PASSWORD
+      POSTGRESS_DB: $POSTGRESS_DB
+      POSTGRESS_HOST: $POSTGRESS_HOST
+      AWS_REGION: $AWS_REGION
+      AWS_PROFILE: $AWS_PROFILE
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
-      URL: "http://localhost:8100"
-  frontend:
-    image: scheele/udacity-frontend:local
+      URL: "http://a44e3f2081c794654acbec10f83b3273-2133831212.eu-central-1.elb.amazonaws.com:8100"
+  udacity-cd-03-project-frontend:
+    image: hnrchrdl/udacity-cd-03-project-frontend
     ports:
       - "8100:80"
