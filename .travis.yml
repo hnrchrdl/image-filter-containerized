@@ -1,0 +1,26 @@
+language: minimal
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+    - dev
+
+before_install:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+  - cd deployment/docker/build
+
+install:
+  - docker-compose build
+  - docker-compose push
+
+before_script:
+  - docker pull hnrchrdl/aws-kubectl
+
+script:
+  - docker run --rm -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION -e CLUSTER_NAME=$CLUSTER_NAME hnrchrdl/aws-kubectl kubectl rollout restart deployment udacity-cd-03-project-userservice
+  - docker run --rm -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION -e CLUSTER_NAME=$CLUSTER_NAME hnrchrdl/aws-kubectl kubectl rollout restart deployment udacity-cd-03-project-feedservice
+  - docker run --rm -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION -e CLUSTER_NAME=$CLUSTER_NAME hnrchrdl/aws-kubectl kubectl rollout restart deployment udacity-cd-03-project-reverseproxy
+  - docker run --rm -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION -e CLUSTER_NAME=$CLUSTER_NAME hnrchrdl/aws-kubectl kubectl rollout restart deployment udacity-cd-03-project-frontend

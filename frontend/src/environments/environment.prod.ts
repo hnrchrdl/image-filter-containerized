@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  appName: "Udagram",
+  appName: "Udacity cloud developer 03 project page",
   apiHost:
     "http://aeef837c59bb84cefbdc672e59eba3bc-854597367.eu-central-1.elb.amazonaws.com:8080/api/v0"
 };
