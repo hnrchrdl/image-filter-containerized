@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  appName: "Udacity cloud developer 03 project page",
+  appName: "Udacity cloud developer 03 project page - dev",
   apiHost: "http://localhost:8080/api/v0"
 };
 

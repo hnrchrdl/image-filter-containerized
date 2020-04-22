@@ -12,7 +12,6 @@ RUN npm ci
 # Bundle app source
 COPY . .
 RUN if [ "$CI" = "true" ] ; then ionic build --configuration=production ; else ionic build ; fi
-RUN ionic build
 
 ## Run
 FROM nginx:alpine
