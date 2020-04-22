@@ -6,14 +6,13 @@ services:
 branches:
   only:
     - master
-    - dev
 
 before_install:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
   - cd deployment/docker/build
 
 install:
-  - docker-compose build
+  - docker-compose build --build-arg CI
   - docker-compose push
 
 before_script:

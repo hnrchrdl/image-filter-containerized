@@ -19,7 +19,7 @@ services:
       AWS_PROFILE: $AWS_PROFILE
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
-      URL: "http://a44e3f2081c794654acbec10f83b3273-2133831212.eu-central-1.elb.amazonaws.com:8100"
+      URL: $URL
   udacity-cd-03-project-feedservice:
     image: hnrchrdl/udacity-cd-03-project-feedservice
     volumes:
@@ -33,7 +33,7 @@ services:
       AWS_PROFILE: $AWS_PROFILE
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
-      URL: "http://a44e3f2081c794654acbec10f83b3273-2133831212.eu-central-1.elb.amazonaws.com:8100"
+      URL: $URL
   udacity-cd-03-project-frontend:
     image: hnrchrdl/udacity-cd-03-project-frontend
     ports:
