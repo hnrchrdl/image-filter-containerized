@@ -11,6 +11,7 @@ COPY package*.json ./
 RUN npm ci
 # Bundle app source
 COPY . .
+# Build for production in CI, else use a local build setup.
 RUN if [ "$CI" = "true" ] ; then ionic build --configuration=production ; else ionic build ; fi
 
 ## Run

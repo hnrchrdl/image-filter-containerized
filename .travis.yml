@@ -7,17 +7,21 @@ branches:
   only:
     - master
 
+# login to dockerhub so we can push images
 before_install:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
   - cd deployment/docker/build
 
+# build and push images.
 install:
   - docker-compose build --build-arg CI
   - docker-compose push
 
+# pull the image to run kubectl commands.
 before_script:
   - docker pull hnrchrdl/aws-kubectl
 
+# perform rolling updates based on the fresh images.
 script:
   - docker run --rm -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION -e CLUSTER_NAME=$CLUSTER_NAME hnrchrdl/aws-kubectl kubectl rollout restart deployment udacity-cd-03-project-userservice
   - docker run --rm -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION -e CLUSTER_NAME=$CLUSTER_NAME hnrchrdl/aws-kubectl kubectl rollout restart deployment udacity-cd-03-project-feedservice
